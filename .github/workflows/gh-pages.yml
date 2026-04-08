@@ -38,7 +38,7 @@ jobs:
         run: |
           cd rust-book
           mdbook build
-          mdbook-epub --output book.epub
+          mdbook-epub build -o book.epub .
 
       - name: Stage site for Pages
         run: |

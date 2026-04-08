@@ -36,7 +36,7 @@ fi
 
 echo "==> Building rust-book HTML"
 (cd "${BOOK_DIR}" && mdbook build)
-(cd "${BOOK_DIR}" && mdbook-epub --output book.epub)
+(cd "${BOOK_DIR}" && mdbook-epub build -o book.epub .)
 
 echo "==> Preparing public site"
 rm -rf "${BOOK_OUT}"
