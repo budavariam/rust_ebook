@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rust Book - Live Copy</title>
+    <style>
+      :root {
+        --bg: #0b1220;
+        --card: #111a2b;
+        --accent: #f97316;
+        --text: #e5e7eb;
+        --muted: #94a3b8;
+        --border: rgba(255, 255, 255, 0.08);
+        --glow: 0 20px 80px rgba(249, 115, 22, 0.25);
+        font-family:
+          "Inter",
+          "Segoe UI",
+          system-ui,
+          -apple-system,
+          sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(
+            circle at 20% 20%,
+            rgba(249, 115, 22, 0.1),
+            transparent 35%
+          ),
+          radial-gradient(
+            circle at 80% 0%,
+            rgba(14, 165, 233, 0.2),
+            transparent 40%
+          ),
+          var(--bg);
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 16px;
+      }
+      .shell {
+        width: min(1100px, 100%);
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.04),
+          rgba(255, 255, 255, 0.02)
+        );
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        box-shadow:
+          var(--glow),
+          0 8px 40px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+      }
+      header {
+        padding: 28px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+      }
+      .title {
+        font-size: clamp(24px, 4vw, 32px);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin: 0;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      main {
+        display: grid;
+        gap: 20px;
+        padding: 28px;
+        background: rgba(0, 0, 0, 0.2);
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 20px;
+        display: grid;
+        gap: 12px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+      }
+      .card h2 {
+        margin: 0;
+        font-size: 18px;
+        letter-spacing: -0.01em;
+      }
+      .muted {
+        color: var(--muted);
+        margin: 0;
+        line-height: 1.6;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 18px;
+        background: var(--accent);
+        color: #0b0f18;
+        border: none;
+        border-radius: 12px;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 10px 30px rgba(249, 115, 22, 0.35);
+        transition:
+          transform 0.12s ease,
+          box-shadow 0.12s ease;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 40px rgba(249, 115, 22, 0.4);
+      }
+      .grid {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+      footer {
+        padding: 0 28px 28px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      code {
+        background: rgba(255, 255, 255, 0.04);
+        padding: 2px 6px;
+        border-radius: 6px;
+        font-family:
+          "JetBrains Mono", "SFMono-Regular", ui-monospace, monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header>
+        <h1 class="title">Rust Book — Live Mirror</h1>
+        <span class="pill">Static HTML · GitHub Pages</span>
+      </header>
+      <main>
+        <div class="card">
+          <h2>Read the book</h2>
+          <p class="muted">
+            This site hosts the latest build of the official
+            <em>The Rust Programming Language</em>. The content stays in sync
+            via the bundled submodule; click below to open the book.
+          </p>
+          <a class="btn" href="./book/index.html">Open Book →</a>
+        </div>
+        <div class="grid">
+          <div class="card">
+            <h2>Offline friendly</h2>
+            <p class="muted">
+              Everything is pre-built HTML—no external CDNs or JS frameworks.
+              Save the page or mirror the <code>book</code> folder for offline
+              reference.
+            </p>
+          </div>
+          <div class="card">
+            <h2>Updated from upstream</h2>
+            <p class="muted">
+              Keep the submodule on the <code>main</code> branch up to date and
+              rebuild. The GitHub Action redeploys on every push to
+              <code>main</code>.
+            </p>
+          </div>
+          <div class="card">
+            <h2>Source layout</h2>
+            <p class="muted">
+              <code>rust-book/</code> contains the upstream sources; the
+              generated site lives in <code>public/book/</code> and publishes
+              via Pages.
+            </p>
+          </div>
+        </div>
+      </main>
+      <footer>
+        Built locally with <code>mdbook</code> and deployed by GitHub Actions.
+      </footer>
+    </div>
+  </body>
+</html>

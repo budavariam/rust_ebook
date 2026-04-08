@@ -1,0 +1,4 @@
+[submodule "rust-book"]
+	path = rust-book
+	url = https://github.com/rust-lang/book.git
+	branch = main

@@ -1,0 +1,4 @@
+public/book/
+rust-book/book/
+rust-book/target/
+.DS_Store
