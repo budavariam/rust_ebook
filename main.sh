@@ -7,6 +7,7 @@ PUBLIC_DIR="${ROOT_DIR}/public"
 TEMPLATE="${PUBLIC_DIR}/index.template.html"
 OUTPUT_INDEX="${PUBLIC_DIR}/index.html"
 BOOK_OUT="${PUBLIC_DIR}/book"
+REPO_URL="${REPO_URL:-__REPO_URL_PLACEHOLDER__}"
 
 # Ensure submodule exists (handles both .git dir and .git file formats)
 if [ ! -e "${BOOK_DIR}/.git" ]; then
@@ -56,7 +57,7 @@ fi
 
 BOOK_COMMIT=$(git -C "${BOOK_DIR}" rev-parse --short HEAD)
 BOOK_DATE=$(git -C "${BOOK_DIR}" show -s --format=%cI HEAD)
-perl -pe "s/__COMMIT__/${BOOK_COMMIT}/g; s/__DATE__/${BOOK_DATE}/g" "${TEMPLATE}" > "${OUTPUT_INDEX}"
+perl -pe "s/__COMMIT__/${BOOK_COMMIT}/g; s/__DATE__/${BOOK_DATE}/g; s#__REPO_URL__#${REPO_URL}#g" "${TEMPLATE}" > "${OUTPUT_INDEX}"
 
 echo "==> Done"
 echo "Open ${OUTPUT_INDEX} to preview the landing page, or ${BOOK_OUT}/index.html for the book."

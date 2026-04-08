@@ -23,6 +23,7 @@ This pulls the newest `main` of the submodule and rebuilds the site.
 
 - Push to `main`. The included workflow builds the book, stages `public/`, and deploys via `actions/deploy-pages`.
 - In your GitHub repo settings, set Pages source to "GitHub Actions".
+- After first deploy, the live site will be at the Pages URL shown in Settings (e.g., `https://<user>.github.io/<repo>/`). Add that link here once known.
 
 ## Layout
 
