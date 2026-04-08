@@ -55,9 +55,10 @@ if [ ! -f "${TEMPLATE}" ]; then
   exit 1
 fi
 
-BOOK_COMMIT=$(git -C "${BOOK_DIR}" rev-parse --short HEAD)
+BOOK_COMMIT=$(git -C "${BOOK_DIR}" rev-parse HEAD)
+BOOK_COMMIT_SHORT=$(git -C "${BOOK_DIR}" rev-parse --short HEAD)
 BOOK_DATE=$(git -C "${BOOK_DIR}" show -s --format=%cI HEAD)
-perl -pe "s/__COMMIT__/${BOOK_COMMIT}/g; s/__DATE__/${BOOK_DATE}/g; s#__REPO_URL__#${REPO_URL}#g" "${TEMPLATE}" > "${OUTPUT_INDEX}"
+perl -pe "s/__COMMIT__/${BOOK_COMMIT}/g; s/__COMMIT_SHORT__/${BOOK_COMMIT_SHORT}/g; s/__DATE__/${BOOK_DATE}/g; s#__REPO_URL__#${REPO_URL}#g" "${TEMPLATE}" > "${OUTPUT_INDEX}"
 
 echo "==> Done"
 echo "Open ${OUTPUT_INDEX} to preview the landing page, or ${BOOK_OUT}/index.html for the book."

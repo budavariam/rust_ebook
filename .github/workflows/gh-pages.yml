@@ -44,14 +44,15 @@ jobs:
       - name: Stage site for Pages
         run: |
           set -euo pipefail
-          BOOK_COMMIT=$(git -C rust-book rev-parse --short HEAD)
+          BOOK_COMMIT=$(git -C rust-book rev-parse HEAD)
+          BOOK_COMMIT_SHORT=$(git -C rust-book rev-parse --short HEAD)
           BOOK_DATE=$(git -C rust-book show -s --format=%cI HEAD)
           rm -rf public/book
           mkdir -p public/book
           cp -a rust-book/book/. public/book/
           cp "rust-book/book/The Rust Programming Language.epub" public/book/book.epub
           REPO_URL="https://github.com/${{ github.repository }}"
-          perl -pe "s/__COMMIT__/${BOOK_COMMIT}/g; s/__DATE__/${BOOK_DATE}/g; s#__REPO_URL__#${REPO_URL}#g" public/index.template.html > public/index.html
+          perl -pe "s/__COMMIT__/${BOOK_COMMIT}/g; s/__COMMIT_SHORT__/${BOOK_COMMIT_SHORT}/g; s/__DATE__/${BOOK_DATE}/g; s#__REPO_URL__#${REPO_URL}#g" public/index.template.html > public/index.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
