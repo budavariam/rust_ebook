@@ -8,11 +8,13 @@ TEMPLATE="${PUBLIC_DIR}/index.template.html"
 OUTPUT_INDEX="${PUBLIC_DIR}/index.html"
 BOOK_OUT="${PUBLIC_DIR}/book"
 
-if [ ! -d "${BOOK_DIR}/.git" ]; then
-  cat >&2 <<'EOF'
-rust-book submodule is missing. Run:
+# Ensure submodule exists (handles both .git dir and .git file formats)
+if [ ! -e "${BOOK_DIR}/.git" ]; then
+  echo "==> rust-book submodule missing; initializing"
   git submodule update --init --recursive
-EOF
+fi
+if ! git -C "${BOOK_DIR}" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  echo "rust-book submodule is still missing. Run: git submodule update --init --recursive" >&2
   exit 1
 fi
 
@@ -36,14 +38,15 @@ fi
 
 echo "==> Building rust-book HTML"
 (cd "${BOOK_DIR}" && mdbook build)
-(cd "${BOOK_DIR}" && mdbook-epub build -o book.epub .)
+echo "==> Building rust-book EPUB"
+(cd "${ROOT_DIR}" && mdbook-epub -s rust-book)
 
 echo "==> Preparing public site"
 rm -rf "${BOOK_OUT}"
 mkdir -p "${BOOK_OUT}"
 cp -a "${BOOK_DIR}/book/." "${BOOK_OUT}/"
-if [ -f "${BOOK_DIR}/book.epub" ]; then
-  cp "${BOOK_DIR}/book.epub" "${BOOK_OUT}/book.epub"
+if [ -f "${BOOK_DIR}/book/The Rust Programming Language.epub" ]; then
+  cp "${BOOK_DIR}/book/The Rust Programming Language.epub" "${BOOK_OUT}/book.epub"
 fi
 
 if [ ! -f "${TEMPLATE}" ]; then

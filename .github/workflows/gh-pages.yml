@@ -38,7 +38,8 @@ jobs:
         run: |
           cd rust-book
           mdbook build
-          mdbook-epub build -o book.epub .
+      - name: Build rust-book EPUB
+        run: mdbook-epub -s rust-book
 
       - name: Stage site for Pages
         run: |
@@ -48,7 +49,7 @@ jobs:
           rm -rf public/book
           mkdir -p public/book
           cp -a rust-book/book/. public/book/
-          cp rust-book/book.epub public/book/book.epub
+          cp "rust-book/book/The Rust Programming Language.epub" public/book/book.epub
           perl -pe "s/__COMMIT__/${BOOK_COMMIT}/g; s/__DATE__/${BOOK_DATE}/g" public/index.template.html > public/index.html
 
       - name: Upload artifact
