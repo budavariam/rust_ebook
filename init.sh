@@ -16,6 +16,9 @@ if ! command -v mdbook >/dev/null 2>&1; then
   rustup default stable
   cargo install mdbook --locked
 fi
+if ! command -v mdbook-epub >/dev/null 2>&1; then
+  cargo install mdbook-epub --locked
+fi
 
 echo "==> Building site"
 "${ROOT_DIR}/main.sh"
