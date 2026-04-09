@@ -96,7 +96,7 @@ PYEOF
 cp "${PATCHES_DIR}/listing_mod.rs" "${BOOK_DIR}/packages/mdbook-trpl/src/listing/mod.rs"
 
 # note/mod.rs: add epub renderer support
-sed -i '' 's/renderer == "test")/renderer == "test" || renderer == "epub")/' \
+perl -i -pe 's/renderer == "test"\)/renderer == "test" || renderer == "epub")/' \
   "${BOOK_DIR}/packages/mdbook-trpl/src/note/mod.rs"
 
 echo "==> Building rust-book (HTML + EPUB)"
