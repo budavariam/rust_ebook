@@ -2,5 +2,9 @@ public/book/
 public/index.html
 rust-book/book/
 rust-book/target/
+target/
 .DS_Store
 index.html
+.venv/
+uv.lock
+rust.epub

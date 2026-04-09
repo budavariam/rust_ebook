@@ -1,0 +1,26 @@
+/* Fix code blocks rendering with smaller font than body text in epub readers */
+code,
+pre,
+pre code {
+    font-size: 0.5em !important;
+    font-family: monospace, monospace;
+}
+
+/* Highlight code blocks that have special meaning.
+   ferris.css uses body.light/.coal/etc. selectors that require mdbook's JS to
+   set a theme class on <body> — that never happens in epub readers. */
+.does_not_compile,
+.panics,
+.not_desired_behavior {
+    background: #fff1f1;
+}
+
+/* Ferris crab size — matches the ferris-large rule in ferris.css (4.5em).
+   Override this value to resize the crab in epub readers. */
+.ferris-container {
+    display: block;
+}
+.ferris.ferris-large {
+    width: 4.5em;
+    height: auto;
+}
