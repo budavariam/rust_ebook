@@ -17,6 +17,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      REPO_URL: https://github.com/${{ github.repository }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -31,33 +33,11 @@ jobs:
         with:
           mdbook-version: 'latest'
 
-      - name: Install mdbook-epub
-        run: cargo install mdbook-epub --locked
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y librsvg2-bin
 
-      - name: Install pandoc
-        run: sudo apt-get update && sudo apt-get install -y pandoc
-
-      - name: Build rust-book
-        run: |
-          cd rust-book
-          mdbook build
-      - name: Build EPUB from HTML with pandoc
-        run: |
-          mkdir -p rust-book/book/epub
-          pandoc rust-book/book/html/index.html -o "rust-book/book/epub/The Rust Programming Language.epub" --metadata title="The Rust Programming Language" --toc
-
-      - name: Stage site for Pages
-        run: |
-          set -euo pipefail
-          BOOK_COMMIT=$(git -C rust-book rev-parse HEAD)
-          BOOK_COMMIT_SHORT=$(git -C rust-book rev-parse --short HEAD)
-          BOOK_DATE=$(git -C rust-book show -s --format=%cI HEAD)
-          rm -rf public/book
-          mkdir -p public/book
-          cp -a rust-book/book/. public/book/
-          cp "rust-book/book/epub/The Rust Programming Language.epub" "public/book/The Rust Programming Language.epub"
-          REPO_URL="https://github.com/${{ github.repository }}"
-          perl -pe "s/__COMMIT__/${BOOK_COMMIT}/g; s/__COMMIT_SHORT__/${BOOK_COMMIT_SHORT}/g; s/__DATE__/${BOOK_DATE}/g; s#__REPO_URL__#${REPO_URL}#g" public/index.template.html > public/index.html
+      - name: Build site
+        run: ./main.sh
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
