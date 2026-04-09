@@ -22,10 +22,7 @@ fi
 
 _clean_submodule() {
   git -C "${BOOK_DIR}" restore -- .
-  find "${BOOK_DIR}/src" -name '*.md.bak' -delete
-  rm -f  "${BOOK_DIR}/epub.css"
-  rm -f  "${BOOK_DIR}/packages/mdbook-trpl/src/bin/ferris.rs"
-  rm -rf "${BOOK_DIR}/packages/mdbook-trpl/src/ferris/"
+  git -C "${BOOK_DIR}" clean -fd
 }
 
 echo "==> Cleaning rust-book repo (restoring any patched files from previous runs)"
